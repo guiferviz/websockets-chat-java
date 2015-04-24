@@ -1,0 +1,57 @@
+@(title: String, angularAppName: String = "")(content: Html)
+
+<!DOCTYPE html>
+
+<html ng-app=@angularAppName>
+    <head>
+        <title>@title</title>
+        <link rel="stylesheet" href="@routes.Assets.at("style/bootstrap.min.css")">
+        <link rel="stylesheet" href="@routes.Assets.at("style/main.css")">
+        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+        <script src="@routes.Assets.at("script/angular.min.js")"></script>
+        <script src="@routes.Assets.at("script/chat.js")"></script>
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                    <!-- Cabecera de la barra -->
+                <div class="navbar-header">
+                    <a href="../" class="navbar-brand">@title</a>
+                </div>
+                    <!-- Parte derecha de la barra -->
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="http://programmingheroes.blogspot.com/" target="_blank">
+                            Blog
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="container clearfix">
+            @content
+        </div>
+
+        <footer class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <ul class="list-unstyled">
+                        <li class="pull-right"><a href="#">Back to top</a></li>
+                        <li><a href="https://www.facebook.com/ProgrammingHeroes">Facebook</a></li>
+                        <li><a href="https://twitter.com/ProgrammingH">Twitter</a></li>
+                        <li><a href="https://github.com/guiferviz">GitHub</a></li>
+                        <li><a href="https://www.youtube.com/channel/UCsNgYSsRge30MJdQD0CWD8g">YouTube</a></li>
+                    </ul>
+                    <p>Hecho por <a href="http://thomaspark.co" rel="nofollow">
+                            guiferviz</a>.
+                    <p>Based on <a href="http://getbootstrap.com" rel="nofollow">
+                            Bootstrap</a>.
+                </div>
+            </div>
+        </footer>
+
+
+    </body>
+</html>

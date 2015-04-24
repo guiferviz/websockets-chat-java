@@ -1,0 +1,45 @@
+@(title: String, message: String)
+
+@main(title) {
+
+    <div class="col-xs-12">
+        <div class="text-center page-header">
+            <h1>@message</h1>
+        </div>
+
+        <div class="col-xs-2"></div>
+        <div id="msg-list" class="jumbotron col-xs-8">
+
+            <blockquote>
+                <p>te vienes?</p>
+                <small>Pepe</small>
+            </blockquote>
+
+            <blockquote class="pull-right">
+                <p>vale!!</p>
+                <small>Yo</small>
+            </blockquote>
+
+            <blockquote ng-repeat="n in [1, 2, 3, 4, 5] track by $index" ng-init="i=$index">
+                <p>te vienes? {{n}}</p>
+                <small>Pepe {{i}}</small>
+            </blockquote>
+
+        </div>
+        <div class="col-xs-2"></div>
+
+        <div class="col-xs-12">
+            <div class="input-group">
+                <input type="text"
+                class="form-control" data-emoji_font="true" />
+                <span class="input-group-btn">
+                    <button class="btn btn-default btn-success" type="button">
+                        Enviar
+                    </button>
+                </span>
+            </div>
+        </div>
+
+    </div>
+
+}
