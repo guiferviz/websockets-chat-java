@@ -67,6 +67,17 @@ function MessageController($scope, $http)
 
 			$scope.$apply();
 		};
+
+		// Para evitar desconexiones enviamos mensajes vacíos cada 30 segundos.
+		setInterval(function ()
+		{
+			// Creamos el objeto a enviar
+			var obj = {};
+			obj.msgText = "";
+
+			// Enviamos el mensaje al servidor.
+			socket.send(JSON.stringify(obj));
+		}, 30000);
 	};
 
 	/*
@@ -77,7 +88,6 @@ function MessageController($scope, $http)
 		// Creamos el objeto a enviar
 		var obj = {};
 		obj.msgText = $scope.newMessage.msgText;
-		obj.author = $scope.newMessage.author;
 
 		// No enviamos mensajes vacíos.
 		if (obj.msgText == "")

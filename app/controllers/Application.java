@@ -75,14 +75,21 @@ public class Application extends Controller
                     {
                         public void invoke(JsonNode json)
                         {
+                            String msg = json.get(Constants.MSG).textValue();
+                            // No reenviamos mensajes vacíos.
+                            if (msg.equals(""))
+                            {
+                                return;
+                            }
+
                             // Log de mensajes en la consola.
-                            System.out.println(json.get(Constants.MSG));
+                            System.out.println(msg);
                             System.out.println(" - " + name);
 
                             // Reenviamos a los demás usuarios el mensaje.
                             ObjectNode obj = Json.newObject();
                             obj.put(Constants.AUTHOR, name);
-                            obj.put(Constants.MSG, json.get(Constants.MSG));
+                            obj.put(Constants.MSG, msg);
                             obj.put(Constants.TYPE, Constants.MSG_TYPE);
                             chatApp.sendAll(obj);
                         }
@@ -93,7 +100,7 @@ public class Application extends Controller
                     {
                         public void invoke()
                         {
-                            System.out.println(name + "se ha desconectado");
+                            System.out.println(name + " se ha desconectado");
 
                             // Lo eliminamos del chat
                             chatApp.remove(name);
@@ -108,9 +115,9 @@ public class Application extends Controller
 
                     // Enviar mensaje de bienvenida.
                     String msg = "¡Bienvenido!";
-                    int nUsers = chatApp.getNumberUsers();
-                    msg += nUsers == 2 ? " Hay un usuario más conectado" :
-                            nUsers > 2 ? " Hay " + nUsers + " usuarios más conectados" :
+                    int nUsers = chatApp.getNumberUsers() - 1;
+                    msg += nUsers == 1 ? " Hay un usuario más conectado" :
+                            nUsers > 1 ? " Hay " + nUsers + " usuarios más conectados" :
                             " No hay más usuarios conectados.";
                     ObjectNode obj = Json.newObject();
                     obj.put(Constants.AUTHOR, Constants.APP_AUTHOR);
