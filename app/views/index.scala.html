@@ -1,45 +1,65 @@
 @(title: String, message: String)
 
-@main(title) {
+@main(title, "ChatApp") {
 
-    <div class="col-xs-12">
+    <div ng-controller="MessageController" class="col-xs-12">
         <div class="text-center page-header">
             <h1>@message</h1>
         </div>
 
-        <div class="col-xs-2"></div>
-        <div id="msg-list" class="jumbotron col-xs-8">
-
-            <blockquote>
-                <p>te vienes?</p>
-                <small>Pepe</small>
-            </blockquote>
-
-            <blockquote class="pull-right">
-                <p>vale!!</p>
-                <small>Yo</small>
-            </blockquote>
-
-            <blockquote ng-repeat="n in [1, 2, 3, 4, 5] track by $index" ng-init="i=$index">
-                <p>te vienes? {{n}}</p>
-                <small>Pepe {{i}}</small>
-            </blockquote>
-
-        </div>
-        <div class="col-xs-2"></div>
-
-        <div class="col-xs-12">
-            <div class="input-group">
-                <input type="text"
-                class="form-control" data-emoji_font="true" />
-                <span class="input-group-btn">
-                    <button class="btn btn-default btn-success" type="button">
-                        Enviar
-                    </button>
-                </span>
+        <div ng-hide="connected" class="msg-animation">
+            <div class="col-xs-3"></div>
+            <div class="col-xs-6 form-group"
+                    ng-class="{'has-success': unique===true && newMessage.author.length > 0, 'has-error': unique===false && newMessage.author.length > 0}">
+                <div class="input-group">
+                    <input id="nameInput" type="text" class="form-control"
+                        placeholder="Escribe un nombre..."
+                        ng-model="newMessage.author"
+                        data-ng-keyup="($event.keyCode == 13 && unique && setName()) || checkName()"
+                        data-emoji_font="true" />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default btn-success"
+                                data-ng-click="setName()">
+                            Seleccionar nombre
+                        </button>
+                    </span>
+                </div>
+                <label class="control-label" for="nameInput" ng-show="unique===true && newMessage.author.length > 0">
+                    El nombre de usuario es único :)
+                </label>
+                <label class="control-label" for="nameInput" ng-show="unique===false && newMessage.author.length > 0">
+                    El nombre de usuario debe de ser único...
+                </label>
             </div>
         </div>
 
+        <div ng-show="connected" class="msg-animation">
+            <div class="col-xs-2"></div>
+            <div id="msg-list" class="jumbotron col-xs-8" scroll-glue>
+
+                <blockquote ng-repeat="msg in messages" class="msg-animation">
+                    <p>{{msg.msgText}}</p>
+                    <small>{{msg.author}}</small>
+                </blockquote>
+
+            </div>
+            <div class="col-xs-2"></div>
+
+            <div class="col-xs-12">
+                <div class="input-group">
+                    <input id="msgInput" type="text" class="form-control"
+                            placeholder="Escribe aquí..."
+                            data-ng-keydown="$event.keyCode == 13 && sendMessage()"
+                            data-emoji_font="true" ng-model="newMessage.msgText" />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default btn-success"
+                                data-ng-click="sendMessage()">
+                            Enviar
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
     </div>
 
 }

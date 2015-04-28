@@ -24,3 +24,19 @@ footer p {
     max-height: 60vh;
     overflow: auto;
 }
+
+/*
+ * Estilo CSS que se aplica al empezar la animación.
+ */
+.msg-animation.ng-enter {
+    -webkit-transition: all linear 1s;
+    -moz-transition: all linear 1s;
+    -o-transition: all linear 1s;
+    transition: all linear 1s;
+
+    opacity: 0;
+}
+
+.msg-animation.ng-enter.ng-enter-active {
+    opacity: 1;
+}
